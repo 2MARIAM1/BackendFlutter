@@ -37,8 +37,8 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<User> updateUser(@RequestBody User User) {
-        User updateUser = userService.updateUser(User);
+    public ResponseEntity<User> updateUser(@RequestBody User User) throws Throwable {
+        User updateUser = userService.updateUser(User.getId(),User);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
