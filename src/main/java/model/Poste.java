@@ -18,47 +18,6 @@ public class Poste {
     private Long surface;
     private Date serviceDate;
     private boolean booked;
-    public String getCleaningType() {
-		return cleaningType;
-	}
-
-	public void setCleaningType(String cleaningType) {
-		this.cleaningType = cleaningType;
-	}
-
-	public Long getEstimatedPrice() {
-		return estimatedPrice;
-	}
-
-	public void setEstimatedPrice(Long estimatedPrice) {
-		this.estimatedPrice = estimatedPrice;
-	}
-
-	public Long getSurface() {
-		return surface;
-	}
-
-	public void setSurface(Long surface) {
-		this.surface = surface;
-	}
-
-	public Date getServiceDate() {
-		return serviceDate;
-	}
-
-	public void setServiceDate(Date serviceDate) {
-		this.serviceDate = serviceDate;
-	}
-
-	public boolean isBooked() {
-		return booked;
-	}
-
-	public void setBooked(boolean booked) {
-		this.booked = booked;
-	}
-
-	
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -123,4 +82,44 @@ public class Poste {
     public void setUser(User user) {
         this.user = user;
     }
+    public String getCleaningType() {
+		return cleaningType;
+	}
+
+	public void setCleaningType(String cleaningType) {
+		this.cleaningType = cleaningType;
+	}
+
+	public Long getEstimatedPrice() {
+		return estimatedPrice;
+	}
+
+	public void setEstimatedPrice(Long estimatedPrice) {
+		this.estimatedPrice = estimatedPrice;
+	}
+
+	public Long getSurface() {
+		return surface;
+	}
+
+	public void setSurface(Long surface) {
+		this.surface = surface;
+	}
+
+	public Date getServiceDate() {
+		return serviceDate;
+	}
+
+	public void setServiceDate(Date serviceDate) {
+		this.serviceDate = serviceDate;
+	}
+
+	public boolean isBooked() {
+		return booked;
+	}
+
+	public void setBooked(boolean booked) {
+		this.booked = booked;
+	}
+
 }

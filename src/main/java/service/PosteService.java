@@ -1,29 +1,40 @@
-package service;
-import java.util.Date;
-
+package service ;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import model.Poste;
-import model.User;
 import repo.PosteRepository;
-import repo.UserRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PosteService {
+
     private final PosteRepository posteRepository;
-	private UserRepository UserRepo;
+
+    @Autowired
     public PosteService(PosteRepository posteRepository) {
         this.posteRepository = posteRepository;
     }
 
-    public void createPoste(Long userId, String description, String cleaningType, String location, Long surface, Long serviceDate, Date date, boolean booked) {
-        // Vérifier si l'utilisateur existe
-        User user = UserRepo.findById(userId).orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+    public List<Poste> getAllPostes() {
+        return posteRepository.findAll();
+    }
 
-        // Créer un nouveau poste
-        Poste poste = new Poste(userId, description, cleaningType, location, surface, serviceDate, date, booked, user);
+    public Poste getPosteById(Long id) {
+        return posteRepository.findById(id).orElse(null);
+    }
 
-        // Enregistrer le poste
-        posteRepository.save(poste);
+    public Poste createPoste(Poste poste) {
+        return posteRepository.save(poste);
+    }
+
+    public Poste updatePoste(Poste poste) {
+        return posteRepository.save(poste);
+    }
+
+    public void deletePoste(Long id) {
+        posteRepository.deleteById(id);
     }
 }
