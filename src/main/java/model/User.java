@@ -24,6 +24,20 @@ public class User implements Serializable {
 	private String password;
 	private String region;
 	private String registrationType;
+	private String experience;
+	
+
+	
+	public String getExperience() {
+		return experience;
+	}
+
+	public void setExperience(String experience) {
+		this.experience = experience;
+	}
+
+
+	
 
 	// Getters and setters
 	public Long getId() {
