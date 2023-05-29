@@ -1,6 +1,7 @@
 package model;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 import jakarta.persistence.*;
 
@@ -9,17 +10,16 @@ public class Poste {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, updatable = false)
     private Long id;
-
-    private String description;
     private String cleaningType;
     private String location;
     private Long estimatedPrice;
     private Long surface;
-    private Date serviceDate;
+    private LocalDate serviceDate; 
     private boolean booked;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -29,11 +29,11 @@ public class Poste {
     }
 
   
-    public Poste(Long id, String description, String cleaningType, String location, Long estimatedPrice, Long surface,
-			Date serviceDate, boolean booked, User user) {
+    public Poste(Long id, String cleaningType, String location, Long estimatedPrice, Long surface,
+			LocalDate serviceDate, boolean booked, User user) {
 		super();
 		this.id = id;
-		this.description = description;
+		
 		this.cleaningType = cleaningType;
 		this.location = location;
 		this.estimatedPrice = estimatedPrice;
@@ -51,19 +51,11 @@ public class Poste {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getcleaningType() {
         return cleaningType;
     }
 
-    public void setType(String cleaningType) {
+    public void setcleaningType(String cleaningType) {
         this.cleaningType = cleaningType;
     }
 
@@ -82,13 +74,6 @@ public class Poste {
     public void setUser(User user) {
         this.user = user;
     }
-    public String getCleaningType() {
-		return cleaningType;
-	}
-
-	public void setCleaningType(String cleaningType) {
-		this.cleaningType = cleaningType;
-	}
 
 	public Long getEstimatedPrice() {
 		return estimatedPrice;
@@ -106,11 +91,11 @@ public class Poste {
 		this.surface = surface;
 	}
 
-	public Date getServiceDate() {
+	public LocalDate getServiceDate() {
 		return serviceDate;
 	}
 
-	public void setServiceDate(Date serviceDate) {
+	public void setServiceDate(LocalDate serviceDate) {
 		this.serviceDate = serviceDate;
 	}
 

@@ -1,7 +1,9 @@
 package service ;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import model.Poste;
 import repo.PosteRepository;
 
@@ -9,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
+@Component
 public class PosteService {
 
     private final PosteRepository posteRepository;
@@ -36,5 +40,8 @@ public class PosteService {
 
     public void deletePoste(Long id) {
         posteRepository.deleteById(id);
+    }
+    public List<Poste> getPostsByUserId(Long userId) {
+        return posteRepository.findByUserId(userId);
     }
 }

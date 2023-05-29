@@ -2,24 +2,27 @@ package com.flutter.flutter_backend;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import model.Poste;
-import model.Poste;
-import service.PosteService;
+import model.User;
+
 import service.PosteService;
 
 @RestController
-@RequestMapping("/postes")
+@RequestMapping("/poste")
 public class PosteController {
     private final PosteService posteService;
+    private final UserController userController;
 
     @Autowired
-    public PosteController(PosteService posteService) {
+    public PosteController(PosteService posteService, UserController userController) {
         this.posteService = posteService;
+        this.userController= userController;
     }
 
    
@@ -36,10 +39,24 @@ public class PosteController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Poste> addPoste(@RequestBody Poste poste) {
+    public ResponseEntity<Poste> addPoste(@RequestBody Poste poste) throws Throwable {
+    	ResponseEntity<User> userResponse = userController.getUserById(poste.getUser().getId());
+    	if (userResponse.getStatusCode() != HttpStatus.OK){
+            return ResponseEntity.badRequest().build();
+        }
+    	User user = userResponse.getBody();
+    	poste.setUser(user);
         Poste newPoste = posteService.createPoste(poste);
+        
         return new ResponseEntity<>(newPoste, HttpStatus.CREATED);
     }
+    
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Poste>> getPostsByUserId(@PathVariable("userId") Long userId) {
+        List<Poste> userPosts = posteService.getPostsByUserId(userId);
+        return new ResponseEntity<>(userPosts, HttpStatus.OK);
+    }
+
 
     @PutMapping("/update")
     public ResponseEntity<Poste> updatePoste(@RequestBody Poste poste) throws Throwable {
